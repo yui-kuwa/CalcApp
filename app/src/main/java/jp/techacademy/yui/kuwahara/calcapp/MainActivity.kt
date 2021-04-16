@@ -23,15 +23,11 @@ class MainActivity : AppCompatActivity(),View.OnClickListener{
 
         val rootLayout: View = findViewById(android.R.id.content)
 
-        //if(editText1.text.toString().isEmpty() == false && editText2.text.toString().isEmpty() == false) {
             button1.setOnClickListener(this)
             button2.setOnClickListener(this)
             button3.setOnClickListener(this)
             button4.setOnClickListener(this)
-        //}/*else{
-            //val snackbar = Snackbar.make(rootLayout, "数値を入力してください", Snackbar.LENGTH_INDEFINITE)
-               // .setAction("exit"){}.show()
-        //}*/
+
     }
 
     override fun onClick(v: View?) {
@@ -47,7 +43,19 @@ class MainActivity : AppCompatActivity(),View.OnClickListener{
             flag = 4
         }
 
-        if(editText1.text.isNullOrEmpty() || editText2.text.isNullOrEmpty()) {
+        try {
+            Calculation(flag)
+            intent.putExtra("num", num)
+            startActivity(intent)
+        }catch(e:Exception) {
+            if(v != null) {
+                val snackbar = com.google.android.material.snackbar.Snackbar.make(
+                    v, "数値を入力してください",
+                    com.google.android.material.snackbar.Snackbar.LENGTH_INDEFINITE
+                )
+                    .setAction("exit") {}.show()
+            }
+            /*if(editText1.text.isNullOrEmpty() || editText2.text.isNullOrEmpty()) {
             if (v != null) {
                 val snackbar = Snackbar.make(v, "数値を入力してください", Snackbar.LENGTH_INDEFINITE)
                     .setAction("exit") {}.show()
@@ -57,6 +65,7 @@ class MainActivity : AppCompatActivity(),View.OnClickListener{
             Calculation(flag)
             intent.putExtra("num", num)
             startActivity(intent)
+        }*/
         }
     }
 
